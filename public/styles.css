@@ -1,0 +1,25 @@
+h1, h6, h2{
+	text-align: center;
+}
+
+.game_container{
+	width: 400px;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+#letters{
+	width: 400px;
+	margin: 0 auto;
+}
+
+#letters ul li{
+	float: left;
+	list-style: none;
+	margin-left: 10px;
+	margin-top: 10px;
+	width: 40px;
+	border: 1px black solid;
+	border-radius: 5px;
+	text-align: center;
+}

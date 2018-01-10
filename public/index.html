@@ -2,9 +2,38 @@
 <html>
 	<head>
 		<title>Hangman</title>
-		
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous" />
+		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
-		<h1>Let's play hangman!</h1>
+
+		<div class="container">
+			<h1>Hangman</h1>
+			<br/>
+			<div class="row">
+				<div class="col-md-6">
+					<div style="white-space: pre">
+						<h6>Clue: <span id="clue"></span></h6>
+						<h2 id="blanks"></h2>
+					</div>
+					<div id="letters">
+						<ul>
+
+						</ul>
+					</div>
+					<div style="clear: both"></div>
+				</div>
+				<div class="col-md-6">
+					<div class="game_container">
+						<canvas width="400" id="game" height="400"></canvas>	
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+		<script src="js/scripts.js"></script>
 	</body>
 </html>

@@ -1,17 +1,27 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+const lineReader = require('readline');
 
-const app = express();
+var bodyParser = require('body-parser');
+var wrdMp = new Map();
+var game;
 
 function Word() {
-	this.word;
 	this.clue;
+	this.crtWord;
+	
 }
 
 Word.prototype.getWord = function() {
-	this.word = "";
-	this.clue = "";
-	return this;
+	
+	this.crtWord = "";
+
+	var keys = Array.from(wrdMp.keys());
+	this.clue = keys[Math.floor(Math.random()*keys.length)].trim();
+	var wrdList = wrdMp.get(this.clue);
+	this.crtWord = wrdList[Math.floor(Math.random()*wrdList.length)].trim();
+
 };
 
 function Player(){
@@ -56,7 +66,7 @@ function Game() {
 }
 
 
-Game.prototype.initialize = function(player,gallow,10,0,word) {
+Game.prototype.initialize = function(player,gallow,word) {
 	this.player = player;
 	this.gallow = gallow;
 	this.totalSteps = 10;
@@ -64,13 +74,68 @@ Game.prototype.initialize = function(player,gallow,10,0,word) {
 	this.word = word;
 };
 
-
+const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(3000,function(){
 	console.log("Start playing the game on port 3000");
 });
 
+app.post('/init/',function(req,res){
+	
+	game = new Game();
+	var plyr = new Player();
+	var glw = new Gallow();
+	var word = new Word();
+	game.initialize(plyr,glw,word);
+		
+	var lR = lineReader.createInterface({
+		input: fs.createReadStream('wordList.txt')
+	});
 
+	lR.on('line',function(line){
+		var arr = line.split(":");
+		var clue = arr[0];
+		var wrds = arr[1].split(",");
+		wrdMp.set(clue,wrds);
+	});
+
+
+	setTimeout(function() {
+		game.word.getWord();
+		
+		var data = {
+			"word":game.word.crtWord,
+			"clue":game.word.clue
+		};
+
+		res.send(data);
+	},500);
+	
+});
+
+app.post('/guess/',function(req,res){
+	var guess = req.body.letter;
+	var indices = "";
+	for(var i = 0; i < game.word.crtWord.length; i++){
+		if(game.word.crtWord[i] == guess){
+			indices += i+",";
+		}
+	}
+
+	var hangman = "";
+	if(indices === ""){
+		hangman = game.gallow.getNextPart();
+	}
+
+	var data = {
+		"indices":indices,
+		"hangman":hangman
+	}
+
+	res.send(data);
+});
 

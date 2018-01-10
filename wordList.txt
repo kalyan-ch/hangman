@@ -1,7 +1,7 @@
-animals:
-movies:
-famous people:
-famous things:
-places:
-famous dishes:
-popular brands:
+animals: lion, tiger, hippopotamus, lizard, rattle snake, king cobra, scorpion, cat, wolf, panther, leopard, mongoose, chameleon, butterfly, horse, grasshopper, python, giraffe, elephant, grizzly bear 
+movies: die hard, pulp fiction, home alone, jurassic park, the empire strikes back, shrek, lion king, up, toy story, mission impossible, the mummy, the exorcist, the mask, the matrix, wizard of oz, jaws, indiana jones, titanic, avatar, la la land
+famous people: barack obama, cristiano ronaldo, lionel messi, rihanna, brad pitt, abraham lincoln, nelson mandela, mahatma gandhi, elvis presley, micheal jackson, tom cruise, stephen hawking, albert einstein, angelina jolie, micheal faraday, isaac newton, kobe bryant, lebron james, micheal jordan, eminem
+famous things: mona lisa, the hubble telescope, teddy bear, super mario, candy crush, chess, macbook, smartphone, ipad, siri, alexa, playstation, death star, light saber, the bible, hangman, harry potter, facebook, youtube, microsoft windows
+places: the eiffel tower, pyramids of giza, azerbaijan, albania, sudan, Taj mahal, Greenwich, colosseum, vatican city, times square, golden gate bridge, the grand canyon, niagara falls, world trade center, silicon valley, washington dc, helsinki, north pole, himalayas, central park 
+famous food: pasta, pizza, sushi, panneer butter masala, hamburger, french fries, cheesecake, burrito, taco, pad thai, general tso chicken, spring roll, chicken biryani, ice cream, nutella, falafel, gyro, ramen, spaghetti, mac and cheese
+popular brands: mc donalds, colgate, ihop, walmart, amazon, target, gibson, head and shoulders, apple, google, microsoft, tesla, honda, hyundai, chevrolet, spalding, adidas, nike, logitech, alibaba
