@@ -8,6 +8,10 @@ h1, h6, h2{
 	padding: 10px;
 }
 
+.stats{
+	text-align: center;
+}
+
 #letters{
 	width: 400px;
 	margin: 0 auto;
@@ -19,7 +23,32 @@ h1, h6, h2{
 	margin-left: 10px;
 	margin-top: 10px;
 	width: 40px;
-	border: 1px black solid;
 	border-radius: 5px;
 	text-align: center;
+	background-color: #007bff;
 }
+
+#letters ul li a{
+	color: white;
+}
+
+#game{
+	border: 1px solid black;
+}
+
+.wrong{
+	background-color: gray !important;
+}
+
+.wrong a{
+	color:white !important;
+}
+
+.right{
+	background-color: white !important;	
+}
+
+.right a{
+	color:#007bff !important;
+}
+

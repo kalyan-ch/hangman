@@ -7,16 +7,16 @@ var bodyParser = require('body-parser');
 var wrdMp = new Map();
 var game;
 
+//contains the word and the clue for the game
 function Word() {
 	this.clue;
 	this.crtWord;
-	
 }
 
+//gets the word and clue by randoming selecting either
 Word.prototype.getWord = function() {
 	
 	this.crtWord = "";
-
 	var keys = Array.from(wrdMp.keys());
 	this.clue = keys[Math.floor(Math.random()*keys.length)].trim();
 	var wrdList = wrdMp.get(this.clue);
@@ -24,20 +24,18 @@ Word.prototype.getWord = function() {
 
 };
 
-function Player(){
-	this.wonNum;
-	this.lostNum;
-	this.streak;
-}
 
-Player.prototype.guess = function() {
-	// body...
-};
-
+/*
+*
+*represents the gallow 
+*contains different parts of it in a stack
+*
+*/
 function Gallow(){
 	this.partList = [];
 }
 
+//init the stack with all the parts of the gallow
 Gallow.prototype.initParts = function() {
 	this.partList.push("Left Leg");
 	this.partList.push("Right Leg");
@@ -51,51 +49,62 @@ Gallow.prototype.initParts = function() {
 	this.partList.push("Base");
 };
 
-
+//pops the stack to give the next part for drawing
 Gallow.prototype.getNextPart = function() {
 	return this.partList.pop();
 };
 
+//game object is a wrapper to word and gallow objects
 function Game() {
-	this.player;
 	this.gallow;
-	this.totalSteps;
-	this.curSteps;
 	this.word;
 	this.guessWord;
 }
 
-
-Game.prototype.initialize = function(player,gallow,word) {
-	this.player = player;
+Game.prototype.initialize = function(gallow,word) {
 	this.gallow = gallow;
-	this.totalSteps = 10;
-	this.curSteps = 0;
 	this.word = word;
 };
 
 const app = express();
 
+
+//setting express to use html and url encoding
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//starting server - server starting point
 app.listen(3000,function(){
 	console.log("Start playing the game on port 3000");
 });
 
+
+/*
+*
+*post call to initialize everything in the game
+*returns
+*clue and the word to be used in the game
+*game starting point
+*
+*/
+
 app.post('/init/',function(req,res){
 	
 	game = new Game();
-	var plyr = new Player();
 	var glw = new Gallow();
+	glw.initParts();
 	var word = new Word();
-	game.initialize(plyr,glw,word);
-		
+	game.initialize(glw,word);
+	
+	//reading from the text file
 	var lR = lineReader.createInterface({
 		input: fs.createReadStream('wordList.txt')
 	});
 
+
+	//loading the map with clues as keys and array of words as values.
+	//map used to retrieve word and clue later
 	lR.on('line',function(line){
 		var arr = line.split(":");
 		var clue = arr[0];
@@ -103,7 +112,7 @@ app.post('/init/',function(req,res){
 		wrdMp.set(clue,wrds);
 	});
 
-
+	//retrieving the word
 	setTimeout(function() {
 		game.word.getWord();
 		
@@ -114,8 +123,18 @@ app.post('/init/',function(req,res){
 
 		res.send(data);
 	},500);
-	
 });
+
+
+/*
+*
+*post call to process the letter that was the user's guess
+*returns 
+*the indices of the letter in the word if the guess was right
+*the next hangman part to draw if the guess was wrong
+*game core-logic server-side part
+*
+*/
 
 app.post('/guess/',function(req,res){
 	var guess = req.body.letter;
@@ -125,17 +144,21 @@ app.post('/guess/',function(req,res){
 			indices += i+",";
 		}
 	}
-
+	
+	indices = indices.substring(0, indices.length - 1);
+	
 	var hangman = "";
 	if(indices === ""){
-		hangman = game.gallow.getNextPart();
+		var s = game.gallow.getNextPart();
+		hangman = s;
 	}
 
 	var data = {
 		"indices":indices,
 		"hangman":hangman
 	}
-
 	res.send(data);
 });
+
+
 

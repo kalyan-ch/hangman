@@ -10,10 +10,20 @@
 		<div class="container">
 			<h1>Hangman</h1>
 			<br/>
+			<div class="row stats">
+				<div class="col-md-6">
+					<p><a href="#" class="btn btn-primary start">Start Game</a></p>
+				</div>
+				<div class="col-md-6">
+					<p>Wins: <span id="wins">0</span> Losses: <span id="lost">0</span></p>
+					
+				</div>
+				
+			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<div style="white-space: pre">
-						<h6>Clue: <span id="clue"></span></h6>
+						<h6 id="clue"></h6>
 						<h2 id="blanks"></h2>
 					</div>
 					<div id="letters">
@@ -25,11 +35,30 @@
 				</div>
 				<div class="col-md-6">
 					<div class="game_container">
-						<canvas width="400" id="game" height="400"></canvas>	
+						<canvas width="400" id="game" height="400"></canvas>
 					</div>
 				</div>
 			</div>
 
+		</div>
+
+		<div class="modal fade" id="messageModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
